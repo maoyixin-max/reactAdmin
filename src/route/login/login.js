@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
 
 // 引入antd
-import { Form, Input, Button} from 'antd';
+import { Form, Input, Button,message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
+
+// 引入登录接口函数
+import {reqLogin} from '../../api/ajaxApi'
 
 import './login.css'
 
 class login extends Component {
 
-    onFinish = values => {
-        console.log( values);
+    onFinish = async (values) => {
+      const {account,adminPwd} =values
+      const params = new URLSearchParams()
+      params.append('account',account)
+      params.append('adminPwd',adminPwd)
+      // 消灭回调
+      const res = await reqLogin(params)
+   try{
+    //  对登录成功或失败做判断
+    if(res.data==='success'  && res.status===200){
+      message.success('登录成功') 
+      this.props.history.replace('/admin')
+    }else{
+      message.error('登录失败')
+      console.log(res);
+      
+    }
+   }catch(error){
+    alert(error)
+   }
+   
       };
 
 
@@ -30,7 +52,7 @@ class login extends Component {
      
                      >
                    <Form.Item
-        name="username"
+        name="account"
         rules={[{ required: true, message: 'Please input your Username!' },
               
                ]}
@@ -38,7 +60,7 @@ class login extends Component {
                     <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                   </Form.Item>
                   <Form.Item
-        name="password"
+        name="adminPwd"
         rules={[{ required: true, message: 'Please input your Password!' }]}
                   >
                  <Input

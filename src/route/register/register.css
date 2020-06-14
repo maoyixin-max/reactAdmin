@@ -32,3 +32,9 @@ p{
 /* .login-form-button{
     width: 100%;
 } */
+
+.re{
+    font-size: 17px;
+    color: rgb(39, 202, 80);
+    cursor: pointer;
+}

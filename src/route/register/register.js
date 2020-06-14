@@ -1,25 +1,65 @@
 import React, { Component } from 'react';
 
+
 // 引入antd
-import { Form, Input, Button} from 'antd';
+import { Form, Input, Button, message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { PhoneOutlined  } from '@ant-design/icons';
 
+// 引入接口函数
+import {reqRegister} from '../../api/ajaxApi'
+
+// 引入样式
+
 import './register.css'
+
 
 class register extends Component {
 
 //    constructor(props){
 //        super(props)
 //    }
+   
+lon = ()=>{
+  this.props.history.push('/login')
+}
+   
+  onFinish = async (value)=>{
+    const {account,nickname,adminPwd,tel} =value
+  const params = new URLSearchParams()
+  params.append('account',account)
+  params.append('nickname',nickname)
+  params.append('adminPwd',adminPwd)
+  params.append('tel',tel)
+ 
+  // 消灭回调函数
+  
+   const res = await reqRegister(params)
+   try{
 
-  onFinish = (value)=>{
-    console.log(value)
+      //  对登录成功或失败做判断
+    if(res.data==='用户名已经存在，请修改后重试！'){
+      message.success('用户名已经存在，请修改后重试！')
+    }else if(res.status===200){
+     message.success('注册成功,请登录')
+     this.props.history.push('/login')
+    }else{
+      message.error('注册失败')
+    }
+   }catch(error){
+    alert(error)
+   }
+
+  
+
+   
+
   }
 
  
 
     render() {
+      
         return (
             <div className='register'>
                 <div className='head'>
@@ -127,6 +167,8 @@ class register extends Component {
        
               </Form.Item>
          </Form>
+
+         <p className='re' onClick={this.lon}>已有账号去登录？</p>
 
 
       
