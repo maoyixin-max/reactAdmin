@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom'
 
 // 引入antd
 import { Form, Input, Button,message} from 'antd';
@@ -8,9 +9,18 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 // 引入登录接口函数
 import {reqLogin} from '../../api/ajaxApi'
 
+// 引入保存用户数据的工具模块
+import storeUtils from '../../utils/storeUtils'
+import storeUtilss from '../../utils/storeUtilss'
+
+//导入CSS样式
 import './login.css'
 
 class login extends Component {
+
+  lon = ()=>{
+    this.props.history.push('/register')
+  }
 
     onFinish = async (values) => {
       const {account,adminPwd} =values
@@ -19,11 +29,15 @@ class login extends Component {
       params.append('adminPwd',adminPwd)
       // 消灭回调
       const res = await reqLogin(params)
+      //保存用户名字
+      storeUtils.user = values
+      // 保存到本地
+      storeUtilss.saveUser(values)
    try{
     //  对登录成功或失败做判断
     if(res.data==='success'  && res.status===200){
       message.success('登录成功') 
-      this.props.history.replace('/admin')
+      this.props.history.replace('/')
     }else{
       message.error('登录失败')
       console.log(res);
@@ -35,8 +49,19 @@ class login extends Component {
    
       };
 
-
+      // componentWillMount(){
+      //   const user = storeUtils.user
+      // if(user){
+      //  return <Redirect to='/'/>
+      // }
+      // }
     render() {
+      // 用户如果登陆过，就自动跳转到后台界面
+      const user = storeUtils.user
+      if(user){
+       return <Redirect to='/'/>
+      }
+
         return (
             <div className='login'>
                 <div className='head'>
@@ -76,7 +101,7 @@ class login extends Component {
        
               </Form.Item>
          </Form>
-                   
+         <p className='re' onClick={this.lon}>没有账号去注册？</p>
                 </div>
                
             </div>

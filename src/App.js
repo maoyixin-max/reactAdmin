@@ -21,8 +21,8 @@ class app extends Component {
          <BrowserRouter>
          <Switch>
              <Route path='/login' exact component={Login}></Route>
-             <Route path='/admin' component={Admin}></Route>
-             <Route path='/' component={Register}></Route>
+             <Route path='/' exact component={Admin}></Route>
+             <Route path='/register' exact component={Register}></Route>
 
          </Switch>
          </BrowserRouter>
