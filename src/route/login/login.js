@@ -16,6 +16,13 @@ import storeUtilss from '../../utils/storeUtilss'
 //导入CSS样式
 import './login.css'
 
+
+
+
+
+
+
+
 class login extends Component {
 
   lon = ()=>{
@@ -49,16 +56,10 @@ class login extends Component {
    
       };
 
-      // componentWillMount(){
-      //   const user = storeUtils.user
-      // if(user){
-      //  return <Redirect to='/'/>
-      // }
-      // }
     render() {
       // 用户如果登陆过，就自动跳转到后台界面
       const user = storeUtils.user
-      if(user){
+      if(user&&user.account){
        return <Redirect to='/'/>
       }
 
@@ -78,7 +79,7 @@ class login extends Component {
                      >
                    <Form.Item
         name="account"
-        rules={[{ required: true, message: 'Please input your Username!' },
+        rules={[{ required: true, message: '请输入您的用户名' },
               
                ]}
                     >
@@ -86,7 +87,7 @@ class login extends Component {
                   </Form.Item>
                   <Form.Item
         name="adminPwd"
-        rules={[{ required: true, message: 'Please input your Password!' }]}
+        rules={[{ required: true, message: '请输入您的密码' }]}
                   >
                  <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
