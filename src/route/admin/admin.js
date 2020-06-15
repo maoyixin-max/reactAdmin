@@ -38,8 +38,11 @@ class admin extends Component {
             // 自动跳转到登录界面
             return <Redirect to='/login'/>
         }
+        
+ 
 
         return (
+            
             
 
         <Layout style={{height:'100%'}}>
@@ -61,6 +64,7 @@ class admin extends Component {
           <Content className='admin-content'>
               <Switch>
                   <Route path = '/home' component={Home}/>
+                  
                   <Route path='/goods' exact  component={Goods} />
                   <Route path='/add' component={Add} />
                   <Route path='/touch' component={Tonch} />

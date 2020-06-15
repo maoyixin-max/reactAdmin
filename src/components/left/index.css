@@ -3,19 +3,16 @@
 }
 
 .left-logo{
-    display: flex;
+  
     height: 100px;
     align-items: center;
 }
-.left-logo img{
-    width: 80px;
-    height: 100px;
-    margin:0px 20px;
 
-}
 .left-logo h1{
     color: white;
     font-size: 26px;
     cursor: pointer;
+    text-align: center;
+    line-height: 100px;
 }
 

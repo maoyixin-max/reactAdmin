@@ -13,6 +13,7 @@ storeUtils.user = user
 
 ReactDOM.render(
     <App></App>,
+    
     document.querySelector('#root')
 
 )
