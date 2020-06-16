@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom'
+import {Redirect,Link} from 'react-router-dom'
+
 
 // 引入antd
 import { Form, Input, Button,message} from 'antd';
@@ -23,11 +24,13 @@ import './login.css'
 
 
 
-class login extends Component {
 
-  lon = ()=>{
-    this.props.history.push('/register')
-  }
+class login extends Component {
+  
+
+  // lon = ()=>{
+  //   this.props.history.push('/register')
+  // }
 
     onFinish = async (values) => {
       const {account,adminPwd} =values
@@ -62,9 +65,10 @@ class login extends Component {
       if(user&&user.account){
        return <Redirect to='/'/>
       }
-
         return (
+          
             <div className='login'>
+
                 <div className='head'>
                     <h1>react的后台管理</h1>
                 </div>
@@ -102,10 +106,13 @@ class login extends Component {
        
               </Form.Item>
          </Form>
-         <p className='re' onClick={this.lon}>没有账号去注册？</p>
+         <Link to='/register' ><p className='re'>没有账号去注册？</p></Link>
+         {/* <p className='re' >没有账号去注册？</p> */}
+         {/* <a ref=''></a> */}
                 </div>
                
             </div>
+            
         );
     }
 }

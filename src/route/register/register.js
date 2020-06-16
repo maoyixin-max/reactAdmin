@@ -31,7 +31,7 @@ lon = ()=>{
   params.append('nickname',nickname)
   params.append('adminPwd',adminPwd)
   params.append('tel',tel)
- 
+  console.log(params);
   // 消灭回调函数
   
    const res = await reqRegister(params)

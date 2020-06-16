@@ -20,9 +20,11 @@ class app extends Component {
         return (
          <BrowserRouter>
          <Switch>
+        
              <Route path='/login'  component={Login}></Route>
-             <Route path='/'  component={Admin}></Route>
-             <Route path='/register' component={Register}></Route>
+             <Route path='/register'    component={Register}></Route>
+             <Route path='/'   component={Admin}></Route>
+             
 
          </Switch>
          </BrowserRouter>
