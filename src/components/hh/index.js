@@ -81,8 +81,11 @@ class Hh extends Component {
               cursor:'pointer',
               color:'red'
             }}>
-                </Href>
-             <span style={{float:'left', color:'#405212'}}>{time}</span>
+               退出登录</Href>
+             <span style={{float:'left', color:'#405212',
+            textAlign:' center',
+            lineHeight: '80px'
+            }}>{time}</span>
             </div>
         );
     }
