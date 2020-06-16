@@ -87,7 +87,7 @@ class login extends Component {
               
                ]}
                     >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入您的用户名" />
                   </Form.Item>
                   <Form.Item
         name="adminPwd"
@@ -96,7 +96,7 @@ class login extends Component {
                  <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
-          placeholder="Password"
+          placeholder="请输入您的密码"
                 />
               </Form.Item>
               <Form.Item>
@@ -107,8 +107,7 @@ class login extends Component {
               </Form.Item>
          </Form>
          <Link to='/register' ><p className='re'>没有账号去注册？</p></Link>
-         {/* <p className='re' >没有账号去注册？</p> */}
-         {/* <a ref=''></a> */}
+         
                 </div>
                
             </div>

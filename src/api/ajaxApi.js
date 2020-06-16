@@ -24,10 +24,10 @@ export function reqLogin(params){
 
 
 // 获取商品的入口函数
-export function goods(params){
+export function goods(){
 
     return ajax(BASE+'/goods-manage-dzIwMDEtZ3JvdXA1/goods-info.php',
-    params,'GET')
+    'GET')
 }
 
 

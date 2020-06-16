@@ -23,7 +23,7 @@ const { Option } = Select;
 
 class Add extends Component {
 
-    
+    // 将数据保存到params
     onFinish= async (value)=>{
         const {brand,goodsName,model,category,intoDatetime,quantity,price} =value
         const date1 = intoDatetime._d
@@ -37,8 +37,12 @@ class Add extends Component {
         params.append('intoDatetime',date2)
         params.append('quantity',quantity)
         params.append('price',price)
+
+        // 消灭异步函数
          const res = await add(params)    
    try{
+
+    // 对成功和失败做判断
 
     if(res.data==='商品添加成功！'  && res.status===200){
         message.success('添加成功') 
