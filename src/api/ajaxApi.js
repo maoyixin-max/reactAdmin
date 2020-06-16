@@ -22,3 +22,20 @@ export function reqLogin(params){
     params,'POST')
 }
 
+
+// 获取商品的入口函数
+export function goods(params){
+
+    return ajax(BASE+'/goods-manage-dzIwMDEtZ3JvdXA1/goods-info.php',
+    params,'GET')
+}
+
+
+// 添加商品的注册函数
+
+export function add(params){
+
+    return ajax(BASE+'/goods-manage-dzIwMDEtZ3JvdXA1/goods-add.php',
+    params,'POST')
+}
+

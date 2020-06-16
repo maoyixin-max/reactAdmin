@@ -8,6 +8,10 @@ import Href from '../../components/href';
 
 class Goods extends Component {
 
+
+  add=()=>{
+    this.props.history.replace('./add')
+  }
     
 
     
@@ -86,7 +90,7 @@ class Goods extends Component {
           ];
         
         return (
-            <Card title="库存信息管理" extra={<Button type='primary'>添加</Button>}>
+            <Card title="库存信息管理" extra={<Button type='primary' onClick={this.add}>添加</Button>}>
           <Table dataSource={dataSource} columns={columns}
           bordered 
           />;
