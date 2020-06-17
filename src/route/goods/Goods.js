@@ -2,20 +2,32 @@ import React, { Component} from 'react';
 
 // 引入商品数据入口函数
 import {goods} from '../../api/ajaxApi'
+import Mo from '../../components/modal'
 
 // 引入antd
-import { Card,Button,Table, message  } from 'antd';
+import { Card,Button,Table, message,Modal  } from 'antd';
 import Href from '../../components/href';
 
-class Goods extends Component {
 
+
+
+class Goods extends Component {
+// 初始化数据
 state = {
   loading :false,
-  categorys: []
+  categorys: [],
+  showstate:0
+
 }
+
+
+
+// 添加跳转页面
   add=()=>{
     this.props.history.replace('./add')
   }
+
+  // 获取全部数据
   getCategorys=  async()=>{
     this.setState({
       loading:true
@@ -32,37 +44,43 @@ state = {
     }
   }
 
-  // UNSAFE_componentWillMount(){
-  //   this.initColumns()
-  // }
-    
+//  获取全部数据
  componentDidMount(){
      this.getCategorys()
   }
 
+//  修改数据显示对话框
+showUpdate= (categorys)=>{
+  this.categorys=categorys || {}
+ this.setState({
+  showstate:1
+ })
+  
+}
+
+// 取消对话框
+handleCancel = ()=>{
+  this.setState({
+    showstate:0
+
+  })
+}
+
+
+updateCategory=()=>{
+  console.log('updateCategory()');
+  
+}
+
+
 
     
     render() {
-      const {categorys,loading} = this.state
-     
+      const {categorys,loading,showstate} = this.state
+      const  category = this.categorys
       
-        // const dataSource = [
-            // {
-            //   key: '1',
-            //   name: '胡彦斌',
-            //   age: 32,
-            //   address: '西湖区湖底公园1号',
-            //   tel: '0571-22098909',
-              
-            // },
-            // {
-            //   key: '2',
-            //   name: '胡彦祖',
-            //   age: 42,
-            //   address: '西湖区湖底公园1号',
-            //   tel: '0571-22098909'
-            // },
-          // ];
+   
+          
           
           const columns = [
             {
@@ -108,13 +126,17 @@ state = {
               },
               {
                 title: '操作',
-               render:()=>( 
-                   <span>
-                       <Href>查看</Href>
-                       <Href>修改</Href>
-                       <Href>删除</Href>
-                   </span>
-               )
+               render:( categorys)=>( 
+                    
+                        <span>
+                           <Href   >查看</Href>
+                            <Href  onClick={()=>this.showUpdate(categorys)}>修改</Href>
+                             <Href >删除</Href>
+                         </span>
+                       
+                     )
+                 
+               
               }
 
           ];
@@ -122,6 +144,7 @@ state = {
         return (
             <Card title="库存信息管理" extra={<Button type='primary' onClick={this.add}>添加</Button>}>
           <Table dataSource={categorys} columns={columns}
+          rowKey="goodsID"
           bordered 
           loading={loading}
           pagination={
@@ -130,7 +153,17 @@ state = {
            
           }}
           />;
+           <Modal
+          title="修改分类"
+          visible={showstate===1}
+          onOk={this.updateCategory}
+          onCancel={this.handleCancel}
+        >
+         <Mo categoryName={category}/>
+          
+        </Modal>
         </Card>
+        
         );
     }
 }
