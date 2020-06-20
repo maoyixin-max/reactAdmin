@@ -2,7 +2,13 @@ import React, { Component} from 'react';
 
 // 引入商品数据入口函数
 import {goods} from '../../api/ajaxApi'
+// 引入修改会话框组件
 import Mo from '../../components/modal'
+// 引入查看会话框组件
+import See from '../../components/modal/See'
+
+// 引入删除数据入口函数
+import {removedate} from '../../api/ajaxApi'
 
 // 引入antd
 import { Card,Button,Table, message,Modal  } from 'antd';
@@ -18,6 +24,52 @@ state = {
   categorys: [],
   showstate:0
 
+}
+// 点击删除弹出会话框
+removeUpdate=(removegorys)=>{
+  this.categorys=removegorys || {}
+ this.setState({
+  showstate:3
+ })
+  
+}
+
+
+// 删除数据
+removeCategory= async ()=>{
+  // 发送异步请求删除数据
+  const params = new URLSearchParams()
+  params.append('goodsID',this.categorys.goodsID)
+  const re =   await removedate(params)
+  console.log(re.data);
+  
+  // 关闭会话框
+ this.setState({
+  showstate:0
+ })
+//  重新刷新页面
+message.success('删除成功')
+this.getCategorys()
+}
+
+
+
+
+// 控制查看会话框
+see=(categorys)=>{
+  this.categorys=categorys || {}
+ this.setState({
+  showstate:2
+ })
+  
+}
+
+
+// 点击确认关闭会话框
+seeCategory=()=>{
+  this.setState({
+    showstate:0
+   })
 }
 
 
@@ -49,6 +101,7 @@ state = {
      this.getCategorys()
   }
 
+
 //  修改数据显示对话框
 showUpdate= (categorys)=>{
   this.categorys=categorys || {}
@@ -66,9 +119,17 @@ handleCancel = ()=>{
   })
 }
 
+// 点击确认修改后
+updateCategory=()=>{ 
+  // 关闭会话框
+  this.setState({
+    showstate:0
 
-updateCategory=()=>{
-  console.log('updateCategory()');
+  })
+
+  // 重新显示列表
+  this.getCategorys()
+  
   
 }
 
@@ -78,6 +139,7 @@ updateCategory=()=>{
     render() {
       const {categorys,loading,showstate} = this.state
       const  category = this.categorys
+      
       
    
           
@@ -129,9 +191,9 @@ updateCategory=()=>{
                render:( categorys)=>( 
                     
                         <span>
-                           <Href   >查看</Href>
+                           <Href  onClick={()=>this.see(categorys)} >查看</Href>
                             <Href  onClick={()=>this.showUpdate(categorys)}>修改</Href>
-                             <Href >删除</Href>
+                             <Href onClick={()=>this.removeUpdate(categorys)}>删除</Href>
                          </span>
                        
                      )
@@ -149,19 +211,45 @@ updateCategory=()=>{
           loading={loading}
           pagination={
             
-            {defaultPageSize:6,showQuickJumper:true,
+            {defaultPageSize:5,showQuickJumper:true,
            
           }}
           />;
+
+     {/* 修改分类会话框 */}
            <Modal
           title="修改分类"
           visible={showstate===1}
           onOk={this.updateCategory}
           onCancel={this.handleCancel}
-        >
-         <Mo categoryName={category}/>
+
+
+
+        >{/* 导入更新会话框组件 */}
+         <Mo categoryName={category}
+       
+         />
           
         </Modal>
+     {/* 查看分类会话框 */}
+        <Modal
+          title="查看分类"
+          visible={showstate===2}
+          onOk={this.seeCategory}
+          onCancel={this.handleCancel}
+        >
+        <See categoryName={category}/>
+          </Modal>
+
+
+          <Modal
+          title="删除"
+          visible={showstate===3}
+          onOk={this.removeCategory}
+          onCancel={this.handleCancel}
+        >
+         <p>您确定要删除吗</p>
+          </Modal>
         </Card>
         
         );

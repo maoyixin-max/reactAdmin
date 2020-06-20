@@ -1,0 +1,17 @@
+.box1{
+    width: 500px;
+    height: 200px;
+    flex: 1;
+    margin-right: 30px;
+    
+}
+.box2{
+    width: 500px;
+    height: 200px;
+    flex: 1;
+    
+}
+.parent{
+    display: flex;
+   
+}

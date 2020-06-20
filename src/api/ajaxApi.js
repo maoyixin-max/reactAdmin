@@ -31,11 +31,32 @@ export function goods(){
 }
 
 
-// 添加商品的注册函数
+// 添加商品的入口函数
 
 export function add(params){
 
     return ajax(BASE+'/goods-manage-dzIwMDEtZ3JvdXA1/goods-add.php',
     params,'POST')
+}
+
+// 修改数据的入口函数
+export function update(params){
+
+    return ajax(BASE+'/goods-manage-dzIwMDEtZ3JvdXA1/goods-update.php',
+    params,'POST')
+}
+
+// 删除数据的入口函数
+export function removedate(params){
+
+    return ajax(BASE+'/goods-manage-dzIwMDEtZ3JvdXA1/goods-delete.php',
+    params,'GET')
+}
+
+// 管理员数据的入口函数
+export function adminDate(){
+
+    return ajax(BASE+'/store_manager_info.php',
+    'GET')
 }
 
