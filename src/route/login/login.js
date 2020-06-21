@@ -39,15 +39,17 @@ class login extends Component {
       params.append('adminPwd',adminPwd)
       // 消灭回调
       const res = await reqLogin(params)
-      //保存用户名字
-      storeUtils.user = values
-      // 保存到本地
-      storeUtilss.saveUser(values)
+     
    try{
     //  对登录成功或失败做判断
     if(res.data==='success'  && res.status===200){
+       //保存用户名字
+       storeUtils.user = values
+       // 保存到本地
+       storeUtilss.saveUser(values)
       message.success('登录成功') 
       this.props.history.replace('/')
+
     }else{
       message.error('登录失败')
       console.log(res);

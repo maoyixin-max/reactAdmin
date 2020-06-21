@@ -205,6 +205,8 @@ updateCategory=()=>{
         
         return (
             <Card title="库存信息管理" extra={<Button type='primary' onClick={this.add}>添加</Button>}>
+              
+              
           <Table dataSource={categorys} columns={columns}
           rowKey="goodsID"
           bordered 

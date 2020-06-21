@@ -7,6 +7,9 @@ import './index.css'
 
 import list from '../../utils/db'
 
+// 导入保存的用户信息
+import storeUtils from '../../utils/storeUtils'
+
 // 引入antd
 import { Menu} from 'antd';
 import {
@@ -26,31 +29,54 @@ const { SubMenu } = Menu;
 
 class Left extends Component {
   
-    
- 
-  //用数据循环（map）生成左边导航栏，并使用递归调用生成二级菜单
-  automatic= (list)=>{
-   return list.map(itme  => {
-    if(!itme.children){
-      return (
-        <Menu.Item key={itme.key} icon={<PieChartOutlined />}>
-           <Link to={itme.key}> {itme.title}</Link>
-          </Menu.Item>
-      )
-    }else{
-     
-      return(
-        <SubMenu key={itme.key} icon={<MailOutlined />} title={itme.title}>
+      
+    // 对当前用户进行判断并设置权限
+    hasAuth=()=>{
+      
+      const username = storeUtils.user.account
+      if(username  === 'mao6360'){
+        return true
+      }
+      return false
 
-          {this.automatic(itme.children)}
 
-        </SubMenu>
-       
-        
-      )
     }
+
     
-    })
+  //用数据循环（map）生成左边导航栏，并使用递归调用生成二级菜单
+  automatic= (list)=>{ 
+    
+   return list.map(itme  => {
+     
+    // 定义一个对当前用户判断的方法并穿入itme
+    if(this.hasAuth()){
+
+      if(!itme.children){
+        return (
+          <Menu.Item key={itme.key} icon={<PieChartOutlined />}>
+             <Link to={itme.key}> {itme.title}</Link>
+            </Menu.Item>
+        )
+      }else{
+       
+        return(
+          <SubMenu key={itme.key} icon={<MailOutlined />} title={itme.title}>
+  
+            {this.automatic(itme.children)}
+  
+          </SubMenu>
+         
+          
+        )
+      }
+      
+      }
+      return true
+
+    }
+
+    
+    )
 
   }
 
@@ -62,6 +88,7 @@ pu = ()=>{
 
 
     render() {
+      
       const path = this.props.location.pathname
         return (
             <div className='left'>

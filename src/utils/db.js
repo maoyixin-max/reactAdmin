@@ -31,11 +31,11 @@ const list =[
         key:'/touch',
         icon:'AppstoreOutlined'
     },
-    {
-        title:'添加人物权限',
-        key:'/parsonage',
-        icon:'PieChartOutlined ' 
-    },
+    // {
+    //     title:'添加人物权限',
+    //     key:'/parsonage',
+    //     icon:'PieChartOutlined ' 
+    // },
 
     {
         title:'图形',

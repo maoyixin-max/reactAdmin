@@ -1,39 +1,47 @@
-import React, { Component } from 'react';
-import Li  from './Li'
+import React, {Component} from 'react'
+import List from './List'
+import data from '../../utils/mock.json'
+import {adminDate} from '../../api/ajaxApi'
 
 class Remove extends Component {
-
-state={
-    acty:[],
-    pageCount:[]
-
-}
-
+    componentDidMount(){
+      adminDate().then((res)=>{
+         this.setState({
+            data:res.data
+         })
+      })
+    }
+    constructor() {
+        super();
+        this.state = {
+            data:[],
+            dataList:[],
+            pageConfig: {
+                totalPage: data.length //总条数
+            }
+        }
+        this.getCurrentPage = this.getCurrentPage.bind(this)
+    }
+    getCurrentPage(currentPage) {
+ 
+        
+        this.setState({
+            dataList:data[currentPage-1].name
+        })
+    }
     render() {
-       
+        console.log(this.state.data);
+        
         return (
-            <article>
-                <div>
-                <div> </div>
-              
-                <Li config = {{
-                    totalPage:10,
-                    paging(obj){
-                        
-                       console.log(obj);
-                       
-                    }
-                }}></Li>
-                 
-                
-             </div>
-                
-               
+            <div>
+                <div style={{padding:'0 300px'}}>
+                    {this.state.dataList}
+                </div>
+                <List pageConfig={this.state.pageConfig}
+                               pageCallbackFn={this.getCurrentPage}/>
+            </div>
 
-
-            </article>
-        );
+        )
     }
 }
-
-export default Remove;
+export default Remove

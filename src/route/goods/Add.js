@@ -131,7 +131,7 @@ class Add extends Component {
     {/* 提交 */}
         <Form.Item>
           <Button type="primary" htmlType="提交">
-            Submit
+            确认添加
           </Button>
         </Form.Item>
       </Form>

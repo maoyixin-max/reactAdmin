@@ -36,9 +36,13 @@ lon = ()=>{
   
    const res = await reqRegister(params)
    try{
+     console.log(res);
+     
+     console.log(res.data);
+     
 
       //  对注册成功或失败做判断
-    if(res.data==='用户名已经存在，请修改后重试！'){
+    if(res.data==='用户名已经存在，请修改后重试！'||res.data=== '手机号已经存在，请修改后重试！' ){
       message.success('用户名已经存在，请修改后重试！')
     }else if(res.status===200){
      message.success('注册成功,请登录')
